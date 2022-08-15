@@ -52,7 +52,9 @@ runQuery(queryString.createHospital+queryString.insertHospital+queryString.creat
 })
 .catch(function(err){
     if(err.errno == "1049"){
-        console.log("Please create database with any name in your DB and add the name of the DB in the config file, then run the same command again");
+        console.log("Please create database with same name provided in .env file, then run the same command again");
+    }else if(err.errno == "1046"){
+        console.log("No database found with the config provided, please check your .env file and create database again");
     }else{
         console.log("Something went wrong");
     }   
