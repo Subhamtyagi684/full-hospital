@@ -1,6 +1,21 @@
+THIS IS THE APPLICATION TO REGISTER PATIENTS AND FETCH INFORMATION USING API'S.
+
+LIBRARIES/FRAMEWORK USED:
+    ->   EXPRESS
+    ->   MULTER  (to save profile image)
+    ->   BCRYPT  (to save encrypted password in database)
+    
+
 STEPS TO RUN THIS APPLICATION:
 
+
 STEP-1===============================================================
+    clone the repository in your system using ' git clone https://github.com/Subhamtyagi684/full-hospital ' command.
+    cd full-hospital
+
+
+
+STEP-2===============================================================
     Create .env file in base directory.Add following database config in .env file with variable names:
         MYSQL_HOST
         MYSQL_USER
@@ -11,13 +26,13 @@ STEP-1===============================================================
 
     RUN 'npm i' command. if no errors, go to next step.
 
-STEP-2===============================================================
+STEP-3===============================================================
     run command 'npm run load' to add pre-requisites tables in database.
     Once data is added and command ran successfully, run command 'npm run start'
 
 
 
-STEP-3===============================================================
+STEP-4===============================================================
     if everything ran successfully:
 
     API END POINTS:
