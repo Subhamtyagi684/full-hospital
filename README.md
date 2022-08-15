@@ -9,6 +9,7 @@ STEP-1===============================================================
 
         Note: All four variables are mandatory for database configuration.
 
+    RUN 'npm i' command. if no errors, go to next step.
 
 STEP-2===============================================================
     run command 'npm run load' to add pre-requisites tables in database.
