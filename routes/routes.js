@@ -3,6 +3,8 @@ var router = express.Router();
 const getDataFromDb = require('../mydb/createQuery');
 var multer = require("multer");
 const upload = multer({ dest: 'uploads/' });
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 var checkValidation = {
     validateName : function(str){
@@ -92,7 +94,16 @@ function checkBodyParams(req,res,next){
             });
             res.end();
         }else{
-            next();
+            bcrypt.hash(req.body.password, saltRounds, function(err, result) {
+                if(!err){
+                    req.body.password = result;
+                    next();
+                }else{
+                    res.json({"message":"Something went wrong while saving password."});
+                    res.end();
+                }
+            });
+
         }
     }else{
         res.json({"message":"No parameters in the body"});
@@ -105,7 +116,6 @@ function saveInDatabase(req,res,next){
     var profileImage = req.file ? req.file.filename+'@'+new Date().toISOString(): null;
     getDataFromDb.getMultiple(`insert into patient_register (name,address,email,phone,password,photo_id,psychiatrist_id) values ('${req.body.name}','${req.body.address}','${req.body.email}','${req.body.phone_no}','${req.body.password}','${profileImage}','${req.body.psychiatrist_id}');`)
     .then(function(data){
-        console.log(data);
         res.send("Data saved successfully.");
     }).catch(function(err){
         if(err.code=="ER_DUP_ENTRY"){
