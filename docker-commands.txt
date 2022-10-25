@@ -1,0 +1,7 @@
+docker run -d --name nginx-cont-1 --publish 30198:80 --volume ${PWD}/index.html:/var/www/html/index.html nginx 
+
+docker build . -t shubham/node-app:v1
+
+docker image inspect  shubham/node-app:v1
+
+docker run -d --name node-app-cont -p 30198:3000  --network my-bridge-network --volume ~/home/configs/mysqlConfig.js:/usr/src/app/mysqlConfig.js shubham/node-app:v1
