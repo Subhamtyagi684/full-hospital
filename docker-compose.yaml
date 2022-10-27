@@ -1,0 +1,37 @@
+services:
+  frontend:
+    container_name: node-app-cont
+    build: .
+    image: shubham/node-app:v1
+    networks:
+      - my-shared-network
+    volumes:
+      - ~/frontend_data:/configs
+  cache-service:
+    container_name: redis-cont
+    image: redis:6.0
+    networks:
+      - my-shared-network
+  nginx-service:
+    container_name: nginx-cont
+    image: nginx:alpine
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - my-shared-network
+
+  database-service:
+    container_name: db-mysql-cont
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: ****
+      MYSQL_DATABASE: ****
+    networks:
+      - my-private-network
+
+networks:
+  my-shared-network: {}
+  my-private-network: {}
