@@ -1,17 +1,22 @@
 services:
   frontend:
-    container_name: node-app-cont
     build: .
     image: shubham/node-app:v1
+    restart: unless-stopped
     networks:
       - my-shared-network
     volumes:
       - ~/frontend_data:/configs
+    deploy:
+      mode: replicated
+      replicas: 2
+
   cache-service:
     container_name: redis-cont
     image: redis:6.0
     networks:
       - my-shared-network
+
   nginx-service:
     container_name: nginx-cont
     image: nginx:alpine
@@ -22,13 +27,15 @@ services:
       - "443:443"
     networks:
       - my-shared-network
+    volumes:
+      - ~/nginx/nginx.conf:/etc/nginx/nginx.conf
 
   database-service:
     container_name: db-mysql-cont
     image: mysql:5.6
     environment:
-      MYSQL_ROOT_PASSWORD: ****
-      MYSQL_DATABASE: ****
+      MYSQL_ROOT_PASSWORD: subhamMysql@
+      MYSQL_DATABASE: lattice
     networks:
       - my-private-network
 
