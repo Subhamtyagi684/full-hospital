@@ -10,6 +10,8 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+    environment:
+      CONTAINER_NAME: "{{.NAME}}"
 
   cache-service:
     container_name: redis-cont
